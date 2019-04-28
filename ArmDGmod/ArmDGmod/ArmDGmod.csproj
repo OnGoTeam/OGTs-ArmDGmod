@@ -49,8 +49,11 @@
   <ItemGroup>
     <Compile Include="ArmDGmod.cs" />
     <Compile Include="BaseWeapon.cs" />
+    <Compile Include="BaseWeaponChars.cs" />
     <Compile Include="BaseWeaponModules.cs" />
     <Compile Include="BaseWeaponObstruction.cs" />
+    <Compile Include="Characteristics\Characteristics.cs" />
+    <Compile Include="Modules\Module.cs" />
     <Compile Include="Obstruction\IReceiveObstruction.cs" />
     <Compile Include="Obstruction\Obstructor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

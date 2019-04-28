@@ -96,7 +96,7 @@ namespace ArmDGmod.Obstruction
         
         public void Update()
         {
-            if (Iro != null && Check())
+            if (Iro != null && Iro.Receiving && Check())
             {
                 Iro.Receive(this);
             }

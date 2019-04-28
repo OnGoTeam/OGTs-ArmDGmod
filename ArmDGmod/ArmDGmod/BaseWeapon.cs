@@ -12,5 +12,6 @@ namespace ArmDGmod
 
         partial void AddObstructor();
         partial void UpdateModules();
+        partial void ResetChars();
     }
 }
