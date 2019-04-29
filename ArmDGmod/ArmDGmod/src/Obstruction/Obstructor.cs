@@ -10,7 +10,6 @@ namespace ArmDGmod.Obstruction
         public readonly Vec2 Size;
         public Vec2 Position;
         public readonly WeakReference<IReceiveObstruction> Iro;
-        private int _ticks;
 
         public Vec2 TopLeft => Position - Size / 2;
 
@@ -22,7 +21,6 @@ namespace ArmDGmod.Obstruction
             Size = size;
             Position = position;
             Iro = new WeakReference<IReceiveObstruction>(iro);
-            _ticks = 0;
         }
 
         public static Obstructor<T> operator +(Obstructor<T> o1, Vec2 v1)

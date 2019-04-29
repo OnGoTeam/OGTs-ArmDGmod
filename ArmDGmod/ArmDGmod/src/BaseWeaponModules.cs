@@ -37,7 +37,7 @@ namespace ArmDGmod
             CurrChar = new CharAppliable(applied);
         }
 
-        protected bool AddModule(WeaponModuleB module)
+        public bool AddModule(WeaponModuleB module)
         {
             if (CurrModules.Contains(module)) return false;
             var attached = module.Attach(this);
@@ -46,7 +46,7 @@ namespace ArmDGmod
             return true;
         }
 
-        protected bool RemoveModule(WeaponModuleB module)
+        public bool RemoveModule(WeaponModuleB module)
         {
             if (!CurrModules.Contains(module)) return false;
             var detached = module.Detach();

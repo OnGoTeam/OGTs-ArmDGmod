@@ -39,11 +39,9 @@ namespace ArmDGmod.Guns
             }
         }
 
-        public Vec2 SightSpriteOffset => new Vec2(5, -5);
-        public string BarrType => "any";
         public Vec2 GetOffset(ModuleLocation modloc)
         {
-            return new Vec2();
+            return new Vec2(5,-5);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using ArmDGmod.Characteristics;
 using ArmDGmod.Modules.Sights.Interfaces;
+using ArmDGmod.Modules.Sights.Pickups;
 using DuckGame;
 
 namespace ArmDGmod.Modules.Sights.Kinds
@@ -10,6 +11,7 @@ namespace ArmDGmod.Modules.Sights.Kinds
         public CraneSight(float priority) : base(priority)
         {
             _sprite = new Sprite("tinyGun");
+            _sprite.CenterOrigin();
             CharExpMod *= new CharacteristicsSet(10,defaultval:1f);
         }
 
@@ -18,6 +20,19 @@ namespace ArmDGmod.Modules.Sights.Kinds
             _sprite.angle = angle;
             _sprite.flipH = flipH;
             Graphics.Draw(_sprite, pos.x, pos.y);
+        }
+
+        protected override void DetachFromWeapon()
+        {
+            var offset = ((ISupportClassicModule)AttachedWeapon).GetOffset(ModLoc);
+            offset = AttachedWeapon.Anglify(offset);
+            offset = AttachedWeapon.Offdirify(offset);
+            var v = AttachedWeapon.position + offset;
+            Level.Add(new CraneSightPickup(v.x, v.y, this)
+            {
+                hSpeed = AttachedWeapon.hSpeed,
+                vSpeed = AttachedWeapon.vSpeed
+            });
         }
     }
 }
