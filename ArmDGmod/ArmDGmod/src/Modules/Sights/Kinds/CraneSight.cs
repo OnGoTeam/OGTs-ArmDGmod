@@ -12,7 +12,6 @@ namespace ArmDGmod.Modules.Sights.Kinds
         {
             _sprite = new Sprite("tinyGun");
             _sprite.CenterOrigin();
-            CharExpMod *= new CharacteristicsSet(10,defaultval:1f);
         }
 
         protected override void DrawAt(Vec2 pos, float angle, bool flipH)
@@ -20,6 +19,14 @@ namespace ArmDGmod.Modules.Sights.Kinds
             _sprite.angle = angle;
             _sprite.flipH = flipH;
             Graphics.Draw(_sprite, pos.x, pos.y);
+        }
+
+        protected override void UpdateChars(ref CharacteristicsSet applied)
+        {
+            AccuDistance accu;
+            accu.Accuracy = applied.Accuracy;
+            accu.AccuRange *= 3;
+            applied += new CharacteristicsSet(accu.Accuracy - applied.Accuracy);
         }
 
         protected override void DetachFromWeapon()

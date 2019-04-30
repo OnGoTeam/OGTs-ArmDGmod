@@ -54,6 +54,7 @@
     <Compile Include="src\BaseWeaponModules.cs" />
     <Compile Include="src\BaseWeaponObstruction.cs" />
     <Compile Include="src\BaseWeaponResting.cs" />
+    <Compile Include="src\Characteristics\AccuDistance.cs" />
     <Compile Include="src\Characteristics\CharacteristicsSet.cs" />
     <Compile Include="src\Characteristics\CharAppliable.cs" />
     <Compile Include="src\Characteristics\NMApplyChars.cs" />

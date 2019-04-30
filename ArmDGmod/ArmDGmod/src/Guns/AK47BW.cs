@@ -11,7 +11,7 @@ namespace ArmDGmod.Guns
     public class Ak47Bw : BaseWeapon, ISupportMediumSight
     {
         public Ak47Bw(float xval, float yval)
-            : base(xval, yval, new CharacteristicsSet(0.1f, 1000f, 200f, 0.2f, 0.2f, 3f))
+            : base(xval, yval, new CharacteristicsSet(0.1f, 1000f, 200f, FwSec / 10, 0.2f, 3f))
         {
             ModuleUpdTicks = 1;
             ammo = 30;
@@ -28,7 +28,6 @@ namespace ArmDGmod.Guns
             _kickForce = 3.5f;
             ApplyChars(Defaults);
             AddModule(new CraneSight(1));
-            Mod.Debug.Log("modules " + CurrModulesP.Count.ToString());
         }
 
         public override void OnQuackPress()

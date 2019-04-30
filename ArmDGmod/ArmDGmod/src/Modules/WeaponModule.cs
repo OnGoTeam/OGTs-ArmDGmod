@@ -77,13 +77,15 @@ namespace ArmDGmod.Modules
         {
             return true;
         }
-        public virtual void UpdateChars() { }
+
+        protected virtual void UpdateChars(ref CharacteristicsSet applied) { }
         public virtual void OnUpdate() { }
 
         public void Apply(ref CharacteristicsSet applied)
         {
             applied += CharLinMod;
             applied *= CharExpMod;
+            UpdateChars(ref applied);
         }
     }
 }
