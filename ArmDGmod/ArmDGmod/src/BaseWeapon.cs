@@ -1,5 +1,4 @@
-﻿using System;
-using ArmDGmod.Characteristics;
+﻿using ArmDGmod.Characteristics;
 using ArmDGmod.Obstruction;
 using DuckGame;
 
@@ -21,6 +20,13 @@ namespace ArmDGmod
             get => _kickForce;
             set => _kickForce = value;
         }
+
+        public Vec2 DefBarrOffTl { get; protected set; }
+        public Vec2 BarrelOffsetTl
+        {
+            get => _barrelOffsetTL;
+            set => _barrelOffsetTL = value;
+        }
         protected BaseWeapon(float xval, float yval, CharacteristicsSet characteristics) : base(xval, yval)
         {
             Defaults = new CharAppliable(characteristics);
@@ -29,6 +35,7 @@ namespace ArmDGmod
         public override void Initialize()
         {
             InitObstructors();
+            DefBarrOffTl = BarrelOffsetTl;
             base.Initialize();
         }
 
@@ -73,8 +80,8 @@ namespace ArmDGmod
 
         public override void Draw()
         {
-            DrawModules();
             base.Draw();
+            DrawModules();
         }
 
         public Vec2 Offdirify(Vec2 v)
@@ -84,14 +91,15 @@ namespace ArmDGmod
             return v;
         }
 
-        public Vec2 Anglify(Vec2 v)
+        public void Draw(Sprite spr, Vec2 pos, float d = 1)
         {
-            var av = new Vec2((float)Math.Cos(angle), (float)Math.Sin(angle));
-            var ov = new Vec2 {
-                x = v.x * av.x - v.y * av.y,
-                y = v.x * av.y + v.y * av.x
-            };
-            return ov;
+            Vec2 vec2 = Offset(pos);
+            spr.flipH = graphic.flipH;
+            spr.angle = angle;
+            spr.alpha = alpha;
+            spr.depth = depth.value + d;
+            spr.scale = scale;
+            Graphics.Draw(spr, vec2.x, vec2.y);
         }
     }
 }

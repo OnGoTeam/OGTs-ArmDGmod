@@ -1,5 +1,7 @@
 ﻿using ArmDGmod.Characteristics;
 using ArmDGmod.Modules;
+using ArmDGmod.Modules.Barrels.Interfaces;
+using ArmDGmod.Modules.Barrels.Kinds;
 using ArmDGmod.Modules.Sights.Interfaces;
 using ArmDGmod.Modules.Sights.Kinds;
 using DuckGame;
@@ -8,7 +10,7 @@ namespace ArmDGmod.Guns
 {
     [EditorGroup("guns|machine guns")]
     [BaggedProperty("isSuperWeapon", true)]
-    public class Ak47Bw : BaseWeapon, ISupportMediumSight
+    public class Ak47Bw : BaseWeapon, ISupportMediumSight, ISupport9MilMetre
     {
         public Ak47Bw(float xval, float yval)
             : base(xval, yval, new CharacteristicsSet(0.1f, 1000f, 200f, FwSec / 10, 0.2f, 3f))
@@ -28,6 +30,7 @@ namespace ArmDGmod.Guns
             _kickForce = 3.5f;
             ApplyChars(Defaults);
             AddModule(new CraneSight(1));
+            AddModule(new RomanBarrel(2));
         }
 
         public override void OnQuackPress()
@@ -40,7 +43,15 @@ namespace ArmDGmod.Guns
 
         public Vec2 GetOffset(ModuleLocation modloc)
         {
-            return new Vec2(5,-5);
+            switch (modloc)
+            {
+                case ModuleLocation.Sight:
+                    return new Vec2(5,-5);
+                case ModuleLocation.Barrel:
+                    return DefBarrOffTl - _center + _extraOffset + new Vec2(-2f, -0.5f);
+                default:
+                    return new Vec2();
+            }
         }
     }
 }

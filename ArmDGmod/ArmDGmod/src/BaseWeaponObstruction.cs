@@ -7,8 +7,8 @@ namespace ArmDGmod
 {
     public partial class BaseWeapon
     {
-        public List<Obstructor<MaterialThing>> Obstructors = new List<Obstructor<MaterialThing>>();
-        public List<Obstructor<IPlatform>> PlatformObstructors = new List<Obstructor<IPlatform>>();
+        public readonly List<Obstructor<MaterialThing>> Obstructors = new List<Obstructor<MaterialThing>>();
+        public readonly List<Obstructor<IPlatform>> PlatformObstructors = new List<Obstructor<IPlatform>>();
 
         protected void InitObstructors()
         {
@@ -16,7 +16,7 @@ namespace ArmDGmod
         }
         private void AddObstructor(Vec2 size, Vec2 offset)
         {
-            var o1 = new Obstructor<MaterialThing>(size, position + Offdirify(offset), this);
+            var o1 = new Obstructor<MaterialThing>(size, position + Offset(offset), this);
             Obstructors.Add(o1);
             //AutoUpdatables.Add(o1);
         }

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.props" Condition="Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,6 +13,8 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>false</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,8 +62,13 @@
     <Compile Include="src\Characteristics\CharAppliable.cs" />
     <Compile Include="src\Characteristics\NMApplyChars.cs" />
     <Compile Include="src\Guns\AK47BW.cs" />
+    <Compile Include="src\Modules\Barrels\Interfaces\ISupport9MilMetre.cs" />
+    <Compile Include="src\Modules\Barrels\ISupportBarrel.cs" />
+    <Compile Include="src\Modules\Barrels\Kinds\RomanBarrel.cs" />
+    <Compile Include="src\Modules\Barrels\BarrelModule.cs" />
     <Compile Include="src\Modules\ClassicModule.cs" />
     <Compile Include="src\Modules\IDrawnModule.cs" />
+    <Compile Include="src\Modules\IDropModule.cs" />
     <Compile Include="src\Modules\ISupportClassicModule.cs" />
     <Compile Include="src\Modules\ISupportModule.cs" />
     <Compile Include="src\Modules\Pickups\PickupModule.cs" />
@@ -78,9 +86,12 @@
     <Compile Include="src\Pickups\Pickup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ILMerge.props" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="ILMergeOrder.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>SET outdir=%25HOMEPATH%25\Documents\DuckGame\Mods\$(TargetName)
@@ -94,4 +105,12 @@ SET contentdd=%25outdir%25\content\dev
 ECHO %25contentdd%25
 IF NOT $(ConfigurationName)==Debug (IF EXIST %25contentdd%25 (RMDIR /S /Q %25contentdd%25))</PostBuildEvent>
   </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.props'))" />
+    <Error Condition="!Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets'))" />
+  </Target>
+  <Import Project="..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets" Condition="Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets')" />
 </Project>

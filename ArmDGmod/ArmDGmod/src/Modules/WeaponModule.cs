@@ -28,14 +28,12 @@ namespace ArmDGmod.Modules
             _priority = priority;
         }
 
-        public static int ComparePrior<T1, T2>(WeaponModule<T1> wm1, WeaponModule<T2> wm2)
-            where T1: ISupportModule where T2: ISupportModule
+        public static int ComparePrior(WeaponModuleB wm1, WeaponModuleB wm2)
         {
             return wm1._priority < wm2._priority ? -1 : wm1._priority > wm2._priority ? 1 : 0;
         }
 
-        public static int CompareChars<T1, T2>(WeaponModule<T1> wm1, WeaponModule<T2> wm2)
-            where T1 : ISupportModule where T2 : ISupportModule
+        public static int CompareChars(WeaponModuleB wm1, WeaponModuleB wm2)
         {
             var c1 = CharacteristicsSet.Compare(wm1.CharExpMod, wm2.CharExpMod);
             return c1 != 0 ? c1 : CharacteristicsSet.Compare(wm1.CharLinMod, wm2.CharLinMod);

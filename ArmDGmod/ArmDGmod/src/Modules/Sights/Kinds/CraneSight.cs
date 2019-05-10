@@ -5,7 +5,7 @@ using DuckGame;
 
 namespace ArmDGmod.Modules.Sights.Kinds
 {
-    public class CraneSight:SightModule<ISupportMediumSight>
+    public class CraneSight:SightModule<ISupportMediumSight>, IDropModule
     {
         private readonly Sprite _sprite;
         public CraneSight(float priority) : base(priority)
@@ -14,11 +14,9 @@ namespace ArmDGmod.Modules.Sights.Kinds
             _sprite.CenterOrigin();
         }
 
-        protected override void DrawAt(Vec2 pos, float angle, bool flipH)
+        protected override void DrawAt(Vec2 pos)
         {
-            _sprite.angle = angle;
-            _sprite.flipH = flipH;
-            Graphics.Draw(_sprite, pos.x, pos.y);
+            AttachedWeapon.Draw(_sprite, pos);
         }
 
         protected override void UpdateChars(ref CharacteristicsSet applied)
@@ -32,9 +30,7 @@ namespace ArmDGmod.Modules.Sights.Kinds
         protected override void DetachFromWeapon()
         {
             var offset = ((ISupportClassicModule)AttachedWeapon).GetOffset(ModLoc);
-            offset = AttachedWeapon.Anglify(offset);
-            offset = AttachedWeapon.Offdirify(offset);
-            var v = AttachedWeapon.position + offset;
+            var v = AttachedWeapon.Offset(offset);
             Level.Add(new CraneSightPickup(v.x, v.y, this)
             {
                 hSpeed = AttachedWeapon.hSpeed,

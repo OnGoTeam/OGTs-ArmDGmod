@@ -28,6 +28,8 @@ namespace ArmDGmod
 
         partial void UpdateModules()
         {
+            if (sleeping) return;
+            BarrelOffsetTl = DefBarrOffTl;
             ResetChars();
             var applied = Defaults.CharSet;
             foreach (var module in CurrModules)
@@ -39,6 +41,8 @@ namespace ArmDGmod
 
         public bool AddModule(WeaponModuleB module)
         {
+            CurrModules.Sort(WeaponModuleB.CompareChars);
+            CurrModules.Sort(WeaponModuleB.ComparePrior);
             if (CurrModules.Contains(module)) return false;
             var attached = module.Attach(this);
             if (!attached) return false;
